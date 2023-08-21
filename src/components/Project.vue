@@ -6,14 +6,29 @@ export default {
   data() {
     return {
       projectUrl: 'http://localhost:8000/api/projects',
-      projects: '',
+      projects: [],
+      links: ''
+    }
+  },
+  methods: {
+    loadProject(index) {
+      axios.get(index)
+        .then(response => {
+          this.projects = response.data.projects.data;
+          console.log(response.data.projects);
+        })
+        .catch(error => {
+          console.log('error: ', error)
+        })
+      console.log(index);
     }
   },
   mounted() {
     axios.get(this.projectUrl)
       .then(response => {
-        this.projects = response.data.projects;
-        console.log(this.projects);
+        this.projects = response.data.projects.data;
+        this.links = response.data.projects.links
+        console.log(this.links);
       })
       .catch(error => {
         console.log('error: ', error)
@@ -24,7 +39,16 @@ export default {
 
 <template>
   <h1>Progetti</h1>
-  <div v-for="project in projects">
-    <pre>{{ project.name }}</pre>
+  <div v-for="project in projects" :key="project.id">
+    <div>
+      <a href="#" class="text-dark text-decoration-none">
+        [{{ project.id }}] {{ project.name }}
+      </a>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center gap-3 mt-3">
+    <a class="text-dark text-decoration-none" v-for="(link, index) in links" :key="index" v-html="link.label"
+      @click="loadProject(link.url)">
+    </a>
   </div>
 </template>
