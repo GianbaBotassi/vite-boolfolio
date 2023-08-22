@@ -13,8 +13,13 @@
       <strong class="col-2">Visibilità: </strong>
       <p class="offset-1 col-7">{{ project.private ? 'Privato' : 'Pubblico' }}</p>
     </div>
-
-    <router-link :to="{ name: 'home' }" class="btn btn-primary mt-4">Back to home</router-link>
+    <div>
+      <img v-if="project.user_picture" :src="'http://localhost:8000/storage/' + project.user_picture" :alt="project.name">
+      <img v-else="!project.user_picture" src="http://localhost:8000/storage/images/default.jpg" alt="">
+    </div>
+    <div class="text-center">
+      <router-link :to="{ name: 'home' }" class="btn btn-primary mt-4">Back to home</router-link>
+    </div>
   </div>
 </template>
 <script>
@@ -47,5 +52,11 @@ export default {
 <style>
 #desc-cont {
   width: 700px;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 </style>
