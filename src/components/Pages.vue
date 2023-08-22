@@ -13,9 +13,4 @@ export default {
   }
 }
 </script>
-<style>
-a {
-  text-decoration: none;
-  color: black;
-}
-</style>
+<style></style>

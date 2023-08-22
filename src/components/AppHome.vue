@@ -1,13 +1,11 @@
 <script>
 import axios from 'axios';
 
-import ProjectCard from './ProjectCard.vue'
+// import ProjectCard from './ProjectCard.vue'
 import Pages from './Pages.vue'
 
 export default {
-  name: 'Project',
   components: {
-    ProjectCard,
     Pages
   },
   data() {
@@ -46,13 +44,17 @@ export default {
 </script>
 
 <template>
-  <h1>Progetti</h1>
-  <div v-for="(project, index) in projectsName" :key="index">
-    {{ project.charAt(0).toUpperCase() + project.slice(1) }}
-  </div>
-  <div class="d-flex gap-3 mt-3">
-    <Pages v-for="(link, index) in links" :key="index" @load="loadPage(link.url)" :link="link"
-      :class="link.active ? 'bg-secondary text-white' : ''" />
+  <div class="container text-center">
+    <h1><strong>Progetti</strong></h1>
+    <div class="my-4">
+      <div v-for="(project, index) in projectsName" :key="index">
+        {{ project.charAt(0).toUpperCase() + project.slice(1) }}
+      </div>
+    </div>
+    <div class="d-flex justify-content-center gap-3">
+      <Pages v-for="(link, index) in links" :key="index" @load="loadPage(link.url)" :link="link"
+        :class="link.active ? 'bg-secondary text-white' : ''" />
+    </div>
   </div>
 </template>
 
