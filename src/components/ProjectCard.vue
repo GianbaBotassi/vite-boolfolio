@@ -13,7 +13,18 @@
       <strong class="col-2">Visibilità: </strong>
       <p class="offset-1 col-7">{{ project.private ? 'Privato' : 'Pubblico' }}</p>
     </div>
-    <div>
+    <div class="row gap-2">
+      <strong class="col-2">Tipologia: </strong>
+      <p class="offset-1 col-7">{{ project.type.name }}</p>
+    </div>
+    <div class="row gap-2">
+      <strong class="col-2">Tecnologie: </strong>
+      <p class="offset-1 col-7">
+        <span v-for="tech in project.technologies" class="me-2 bg-primary rounded py-1 px-2 text-white">{{ tech.name
+        }}</span>
+      </p>
+    </div>
+    <div class="text-center">
       <img v-if="project.user_picture" :src="'http://localhost:8000/storage/' + project.user_picture" :alt="project.name">
       <img v-else="!project.user_picture" src="http://localhost:8000/storage/images/default.jpg" alt="">
     </div>
@@ -38,6 +49,7 @@ export default {
       axios.get(target)
         .then(response => {
           this.project = response.data.project;
+          console.log(JSON.stringify(this.project, null, 2));
         })
         .catch(error => {
           console.log('error: ', error)
@@ -51,12 +63,11 @@ export default {
 </script>
 <style>
 #desc-cont {
-  width: 700px;
+  width: 1000px;
 }
 
 img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 200px;
+  height: 300px;
 }
 </style>
