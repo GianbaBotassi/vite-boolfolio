@@ -12,9 +12,11 @@ export default {
   },
   methods: {
     loadProject(index) {
+      if (index == null) return;
       axios.get(index)
         .then(response => {
           this.projects = response.data.projects.data;
+          this.links = response.data.projects.links
           console.log(response.data.projects);
         })
         .catch(error => {
@@ -47,8 +49,14 @@ export default {
     </div>
   </div>
   <div class="d-flex justify-content-center gap-3 mt-3">
-    <a class="text-dark text-decoration-none" v-for="(link, index) in links" :key="index" v-html="link.label"
-      @click="loadProject(link.url)">
+    <a class="text-dark text-decoration-none px-3" v-for="(link, index) in links" :key="index" v-html="link.label"
+      @click="loadProject(link.url)" :class="link.active ? 'bg-secondary text-white' : ''">
     </a>
   </div>
 </template>
+
+<style>
+a {
+  cursor: pointer;
+}
+</style>
