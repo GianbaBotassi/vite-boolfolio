@@ -26,10 +26,10 @@ export default {
           // Get links della paginazione
           this.links = response.data.projects.links;
           this.projectsName = [];
-          // Ciclo for per nomi progetti
+          // Ciclo for per creare oggetto con nomi e id progetti
           const data = response.data.projects.data;
           data.forEach(project => {
-            this.projectsName.push(project.name)
+            this.projectsName.push({ name: project.name, id: project.id })
           });
         })
         .catch(error => {
@@ -46,9 +46,11 @@ export default {
 <template>
   <div class="container text-center">
     <h1><strong>Progetti</strong></h1>
-    <div class="my-4">
+    <div class="d-flex flex-column my-4">
       <div v-for="(project, index) in projectsName" :key="index">
-        {{ project.charAt(0).toUpperCase() + project.slice(1) }}
+        <router-link :to="{ name: 'projectCard', params: { id: project.id } }" class="text-decoration-none text-dark">
+          {{ project.name.charAt(0).toUpperCase() + project.name.slice(1) }}
+        </router-link>
       </div>
     </div>
     <div class="d-flex justify-content-center gap-3">
