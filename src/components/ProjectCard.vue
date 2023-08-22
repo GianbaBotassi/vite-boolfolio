@@ -1,7 +1,18 @@
 <template>
-  <div class="container text-center">
-    <h1>{{ project.name }}</h1>
-    <p>{{ project.description }}</p>
+  <div id="desc-cont" class="container">
+    <h1 class=" text-center my-4"><strong>{{ project.name }}</strong></h1>
+    <div class="row gap-2">
+      <strong class="col-2">Description: </strong>
+      <p class="offset-1 col-7">{{ project.description }}</p>
+    </div>
+    <div class="row gap-2">
+      <strong class="col-2">Collaboratori: </strong>
+      <p class="offset-1 col-7">{{ project.collaborators }}</p>
+    </div>
+    <div class="row gap-2">
+      <strong class="col-2">Visibilità: </strong>
+      <p class="offset-1 col-7">{{ project.private ? 'Privato' : 'Pubblico' }}</p>
+    </div>
 
     <router-link :to="{ name: 'home' }" class="btn btn-primary mt-4">Back to home</router-link>
   </div>
@@ -33,4 +44,8 @@ export default {
   }
 }
 </script>
-<style></style>
+<style>
+#desc-cont {
+  width: 700px;
+}
+</style>
