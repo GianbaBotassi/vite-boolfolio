@@ -33,7 +33,6 @@ export default {
           data.forEach(project => {
             this.projectsName.push(project.name)
           });
-          console.log(JSON.stringify(this.projectsName));
         })
         .catch(error => {
           console.log('error: ', error)
