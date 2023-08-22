@@ -9,7 +9,7 @@ const router = createRouter({
       component: () => import('./components/AppHome.vue')
     },
     {
-      path: '/projectCard',
+      path: '/projectCard/:id',
       name: 'projectCard',
       component: () => import('./components/ProjectCard.vue')
     },
