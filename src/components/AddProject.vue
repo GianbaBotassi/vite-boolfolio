@@ -33,27 +33,30 @@
           <label for="collaborators" class="me-2"><strong>Collaboratori</strong></label>
           <input type="text" id="collaborators" name="collaborators" v-model="project.collaborators">
         </div>
-        <!-- <div>
-            <label class="my-2" for="tipologia"><strong>Tipologia</strong></label>
-            <select class="my-2" name="type_id" id="type_id">
-              <option value=""></option>
-            </select>
-          </div>
-        </div>
 
-        <label class="my-2"><strong>Tecnologie:</strong></label>
         <div>
-          <label for=""></label>
-          <input type="checkbox" name="" id=""" value="">
-          </div>
-        </div> -->
-      </div>
-      <div>
-        <div class=" d-flex justify-content-center gap-4 mt-3">
-          <button type="submit" class="btn btn-secondary">Crea progetto</button>
+          <label for="type_id" class="me-2"><strong>Tipologia</strong></label>
+          <select name="type_id" id="type_id" v-model="project.type_id">
+            <option v-for="type in types" :key="type.id" :value="type.id">
+              {{ type.name }}
+            </option>
+          </select>
         </div>
+      </div>
+
+      <label class="my-2"><strong>Tecnologie:</strong></label>
+      <div v-for="tech in technologies">
+        <label :for="'technology' + tech.id" class="me-2">{{ tech.name }}</label>
+        <input type="checkbox" :name="'technology' + tech.id" :id="'technology' + tech.id" :value="tech.id"
+          v-model="project.technologies">
       </div>
     </div>
+    <div>
+      <div class=" d-flex justify-content-center gap-4 mt-3">
+        <button type="submit" class="btn btn-secondary">Crea progetto</button>
+      </div>
+    </div>
+
   </form>
 
   <!-- Bottone back to home -->
@@ -62,6 +65,8 @@
   </div>
 </template>
 <script>
+import axios from 'axios';
+
 export default {
   name: "AddProject",
   // Messo anche qua altrimenti genera uno warning
@@ -71,18 +76,44 @@ export default {
       project: {
         name: '',
         description: '',
-        private: '',
+        private: 0,
         collaborators: '',
         type_id: '',
         technologies: []
-      }
+      },
+      projectUrl: 'http://localhost:8000/api/',
+      types: [],
+      technologies: []
     }
   },
   methods: {
     submit() {
       console.log(JSON.stringify(this.project, null, 2));
+      // axios.post(this.projectUrl + 'store', this.project)
+      //   .then(res => {
+      //     const dati = res.data;
+      //     console.log(dati);
+      //   })
     }
+  },
+  mounted() {
+    axios.get(this.projectUrl + 'types')
+      .then(res => {
+        this.types = res.data.types;
+      })
+      .catch(err => {
+        console.log('error: ', err);
+      });
+    axios.get(this.projectUrl + 'technologies')
+      .then(res => {
+        this.technologies = res.data.technologies;
+      })
+      .catch(err => {
+        console.log('error: ', err);
+      })
   }
+
+
 }
 </script>
 <style></style>
