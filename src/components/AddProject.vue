@@ -88,12 +88,12 @@ export default {
   },
   methods: {
     submit() {
-      console.log(JSON.stringify(this.project, null, 2));
-      // axios.post(this.projectUrl + 'store', this.project)
-      //   .then(res => {
-      //     const dati = res.data;
-      //     console.log(dati);
-      //   })
+      // console.log(JSON.stringify(this.project, null, 2));
+      axios.post(this.projectUrl + 'store', this.project)
+        .then(res => {
+          const dati = res.data.id;
+          this.$router.push('/projectCard/' + dati)
+        })
     }
   },
   mounted() {
