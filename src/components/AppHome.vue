@@ -3,14 +3,17 @@ import axios from 'axios';
 
 // import ProjectCard from './ProjectCard.vue'
 import Pages from './Pages.vue'
+import AddProject from './AddProject.vue'
 
 export default {
   components: {
-    Pages
+    Pages,
+    AddProject
   },
   data() {
     return {
       projectUrl: 'http://localhost:8000/api/projects',
+      create: false,
       projectsName: [],
       links: ''
     }
@@ -35,6 +38,9 @@ export default {
         .catch(error => {
           console.log('error: ', error)
         })
+    },
+    toggleCreate() {
+      this.create = !this.create
     }
   },
   mounted() {
@@ -44,19 +50,26 @@ export default {
 </script>
 
 <template>
-  <div class="container text-center">
-    <h1><strong>Progetti</strong></h1>
-    <div class="d-flex flex-column my-4">
-      <div v-for="(project, index) in projectsName" :key="index">
-        <router-link :to="{ name: 'projectCard', params: { id: project.id } }" class="text-decoration-none text-dark">
-          {{ project.name.charAt(0).toUpperCase() + project.name.slice(1) }}
-        </router-link>
+  <div class="container text-center pt-3">
+    <div v-if="!create">
+      <h1><strong>Progetti</strong></h1>
+      <div class="d-flex gap-2 justify-content-center">
+        <h2>Nuovo progetto</h2>
+        <button class="btn btn-primary rounded" @click="toggleCreate">+</button>
+      </div>
+      <div class="d-flex flex-column my-4">
+        <div v-for="( project, index ) in  projectsName " :key="index">
+          <router-link :to="{ name: 'projectCard', params: { id: project.id } }" class="text-decoration-none text-dark">
+            {{ project.name.charAt(0).toUpperCase() + project.name.slice(1) }}
+          </router-link>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center gap-3">
+        <Pages v-for="( link, index ) in  links " :key="index" @load="loadPage(link.url)" :link="link"
+          :class="link.active ? 'bg-secondary text-white' : ''" />
       </div>
     </div>
-    <div class="d-flex justify-content-center gap-3">
-      <Pages v-for="(link, index) in links" :key="index" @load="loadPage(link.url)" :link="link"
-        :class="link.active ? 'bg-secondary text-white' : ''" />
-    </div>
+    <AddProject v-else @toggleCreate="toggleCreate" />
   </div>
 </template>
 
