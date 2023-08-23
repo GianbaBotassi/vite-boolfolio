@@ -2,7 +2,7 @@
   <div v-if="project != null" id="desc-cont" class="container">
     <h1 class=" text-center my-4"><strong>{{ project.name.charAt(0).toUpperCase() + project.name.slice(1) }}</strong></h1>
     <div class="row gap-2">
-      <strong class="col-2">Description: </strong>
+      <strong class="col-2">Descrizione: </strong>
       <p class="offset-1 col-7">{{ project.description }}</p>
     </div>
     <div class="row gap-2">
@@ -50,7 +50,7 @@ export default {
       axios.get(target)
         .then(response => {
           this.project = response.data.project;
-          // console.log(JSON.stringify(this.project, null, 2));      
+          // console.log(JSON.stringify(this.project, null, 2));
         })
         .catch(error => {
           console.log('error: ', error)
