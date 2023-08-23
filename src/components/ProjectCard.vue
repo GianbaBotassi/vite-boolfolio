@@ -1,6 +1,7 @@
 <template>
-  <div id="desc-cont" class="container">
-    <h1 class=" text-center my-4"><strong>{{ project.name }}</strong></h1>
+  <div v-if="project" id="desc-cont" class="container">
+    <h1 class=" text-center my-4"><strong>{{ project.name ? project.name.charAt(0).toUpperCase() + project.name.slice(1) :
+      '' }}</strong></h1>
     <div class="row gap-2">
       <strong class="col-2">Description: </strong>
       <p class="offset-1 col-7">{{ project.description }}</p>
@@ -15,12 +16,13 @@
     </div>
     <div class="row gap-2">
       <strong class="col-2">Tipologia: </strong>
-      <p class="offset-1 col-7">{{ project.type.name }}</p>
+      <p class="offset-1 col-7">{{ project.type ? project.type.name : '' }}</p>
     </div>
     <div class="row gap-2">
       <strong class="col-2">Tecnologie: </strong>
       <p class="offset-1 col-7">
-        <span v-for="tech in project.technologies" class="me-2 bg-primary rounded py-1 px-2 text-white">{{ tech.name
+        <span v-for="tech in project.technologies" class="me-2 bg-primary rounded py-1 px-2 text-white">{{ tech.name ?
+          tech.name : ''
         }}</span>
       </p>
     </div>
@@ -49,7 +51,7 @@ export default {
       axios.get(target)
         .then(response => {
           this.project = response.data.project;
-          console.log(JSON.stringify(this.project, null, 2));
+          // console.log(JSON.stringify(this.project, null, 2));      
         })
         .catch(error => {
           console.log('error: ', error)
