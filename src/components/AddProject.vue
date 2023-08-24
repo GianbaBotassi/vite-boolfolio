@@ -69,8 +69,7 @@ import axios from 'axios';
 
 export default {
   name: "AddProject",
-  // Messo anche qua altrimenti genera uno warning
-  emits: ['toggleCreate'],
+  emits: ['toggleCreate'], // Messo anche qua altrimenti genera uno warning
   data() {
     return {
       project: {

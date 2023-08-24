@@ -58,8 +58,9 @@ export default {
         <button class="btn btn-primary rounded" @click="toggleCreate">+</button>
       </div>
       <div class="d-flex flex-column my-4">
-        <div v-for="( project, index ) in  projectsName " :key="index">
-          <router-link :to="{ name: 'projectCard', params: { id: project.id } }" class="text-decoration-none text-dark">
+        <div v-for="( project, index ) in  projectsName " :key="index" class="my-2">
+          <router-link :to="{ name: 'projectCard', params: { id: project.id } }"
+            class="text-decoration-none text-dark py-1 px-2 rounded proj">
             {{ project.name.charAt(0).toUpperCase() + project.name.slice(1) }}
           </router-link>
         </div>
@@ -74,7 +75,8 @@ export default {
 </template>
 
 <style>
-a {
-  cursor: pointer;
+.proj:hover {
+  background-color: bisque;
+  color: red !important
 }
 </style>
